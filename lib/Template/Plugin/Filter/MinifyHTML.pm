@@ -1,6 +1,6 @@
 package Template::Plugin::Filter::MinifyHTML;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Template::Plugin::Filter;
 use base qw( Template::Plugin::Filter );
@@ -18,7 +18,7 @@ sub filter {
   for ($text) {
     s/^\s+//;     # Leading Whitespace
     s/\s+$//;     # Trailing Whitespace
-    s/\s+/ /g;    # More than one space
+    s/[ \r\n\t]+/ /g;    # More than one space
     s/>\s+</></g; # Fix > <
 
     s/\s*\/>/>/g # Remove trailing / on self-closing elements
@@ -55,6 +55,21 @@ version 0.01
 =head1 DESCRIPTION
  
 This is a Template Toolkit filter which uses a few quick and nasty regexes to minify HTML source code. It's built upon the idea/workings of the default 'collapse' filter, but adds a little spice of its own into the mix, removing HTML comments and a few other bits and pieces.
+
+=head1 USAGE
+
+Be sure to [% USE Filter.MinifyHTML %] in your template, then you're able to wrap [% FILTER minify_html %][% END %] around blocks that you would like to minify.
+
+Filter.MinyfyHTML can currently take two arguments - comments and html5.
+       
+=head2 COMMENTS
+
+If comments is set to a truesy value it will remove any HTML comments it finds (<!-- ... -->). It shouldn't affect any conditional comments in your markup (ie. <!--[if lt IE 9]><link href="/static/css/custom-ie.css" rel="stylesheet"><![endif]-->).
+
+=head2 HTML5
+
+If html5 is truesy, then it will remove the trailing slash on self-closing elements (<br />, <input />, etc).
+
 
 =head1 BUYER BEWARE
 

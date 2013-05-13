@@ -15,9 +15,9 @@ name: Template-Plugin-Filter-MinifyHTML
 provides:
   Template::Plugin::Filter::MinifyHTML:
     file: lib/Template/Plugin/Filter/MinifyHTML.pm
-    version: 0.01
+    version: 0.02
 requires:
   Template::Plugin::Filter: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01
+version: 0.02
